@@ -172,8 +172,17 @@
     #julis.poof{ opacity:0; transform:scale(.82) translateY(6px); filter:blur(2px); }
     #julis.appear{ animation:julisIn .5s var(--ease-out) both; }
     @keyframes julisIn{ from{ opacity:0; transform:scale(.86) translateY(10px);} to{ opacity:1; transform:none;} }
-    #julis-body{ animation:bob 3.6s ease-in-out infinite; transform-origin:50% 100%; }
-    #julis-body img{ display:block; width:100%; height:auto; filter:drop-shadow(0 16px 20px rgba(0,0,0,.5)); }
+    #julis-body{ animation:bob 3.6s ease-in-out infinite; transform-origin:50% 100%; outline:none; }
+    #julis-body:focus-visible{ border-radius:1.25rem; box-shadow:0 0 0 3px rgb(255 46 57 / .55); }
+    #julis-art{ position:relative; aspect-ratio:1; width:100%; }
+    #julis-art .bird-orientation{ position:absolute; inset:0; transform-origin:50% 50%; transition:transform .34s var(--ease-out); }
+    #julis.facing-in .bird-orientation{ transform:scaleX(-1); }
+    #julis-art img{ display:block; width:100%; height:100%; object-fit:contain; filter:drop-shadow(0 16px 20px rgba(0,0,0,.5)); }
+    #julis-art .bird-flap{ position:absolute; inset:0; opacity:0; pointer-events:none; transform:translateY(1px) scale(.985); }
+    #julis.flapping .bird-rest{ animation:wingDown .17s linear 4; }
+    #julis.flapping .bird-flap{ animation:wingUp .17s cubic-bezier(.28,.8,.26,1) 4; }
+    @keyframes wingDown{ 0%,100%{ opacity:1; transform:translateY(0) scale(1); } 46%,54%{ opacity:0; transform:translateY(2px) scale(.985); } }
+    @keyframes wingUp{ 0%,100%{ opacity:0; transform:translateY(1px) scale(.985); } 46%,54%{ opacity:1; transform:translateY(-3px) scale(1.015); } }
     @keyframes bob{ 0%,100%{ transform:translateY(0) rotate(-1deg);} 50%{ transform:translateY(-7px) rotate(1deg);} }
     #julis-bubble{ transition:opacity .35s var(--ease-out), transform .35s var(--ease-out); }
     #julis-bubble.hide{ opacity:0; transform:translateY(6px) scale(.96); }
@@ -909,8 +918,13 @@
     <button id="julis-close" aria-label="Ocultar la mascota pájaro" class="absolute -top-2 -right-1 z-10 w-6 h-6 rounded-full bg-coal hair grid place-items-center text-ash hover:text-bone text-sm">×</button>
 
     <!-- Ave roja y amarilla: versión fiel de la nueva mascota -->
-    <div id="julis-body" class="cursor-pointer">
-      <img src="assets/mascota-pajaro-rojo.png" alt="Mascota pájaro de Ferrelaza con pecho rojo">
+    <div id="julis-body" class="cursor-pointer" role="button" tabindex="0" aria-label="Ver el siguiente consejo de la mascota">
+      <div id="julis-art">
+        <div class="bird-orientation">
+          <img class="bird-rest" src="assets/mascota-pajaro-rojo.png" alt="Mascota pájaro de Ferrelaza con pecho rojo">
+          <img class="bird-flap" src="assets/mascota-pajaro-alas-arriba.png" alt="" aria-hidden="true">
+        </div>
+      </div>
     </div>
   </div>
 
@@ -1050,11 +1064,24 @@
       return { x:r.left + r.width/2, y:r.top + r.height*0.55 };
     }
 
+    // Aleteo breve: sólo se activa al interactuar o antes de cambiar de sitio.
+    let flapTimer;
+    function flapWings(duration=720){
+      if(reduce) return;
+      clearTimeout(flapTimer);
+      julis.classList.remove('flapping');
+      requestAnimationFrame(()=>{
+        julis.classList.add('flapping');
+        flapTimer = setTimeout(()=> julis.classList.remove('flapping'), duration);
+      });
+    }
+
     // Cambio de posición + consejo, con un vuelo de plumas.
     let busy = false;
     function hop(){
       if(hidden || busy) return;
       busy = true;
+      flapWings();
       const c = julisCenter();
       featherBurst(c.x, c.y, 26);      // las plumas salen al despegar
       bubble.classList.add('hide');
@@ -1068,6 +1095,7 @@
         const s = spots[spotIndex];
         julis.style.left = s.left; julis.style.right = s.right;
         julis.style.top = 'auto';  julis.style.bottom = s.bottom;
+        julis.classList.toggle('facing-in', s.side==='right');
         bubble.classList.toggle('bub-right', s.side==='right');
         bubble.classList.toggle('bub-left',  s.side!=='right');
         julisText.textContent = tips[tipIndex];
@@ -1086,8 +1114,17 @@
 
     // Ciclo automático
     let timer = setInterval(hop, 7000);
-    // Click en el pájaro = siguiente consejo al instante
-    julisBody.addEventListener('click', ()=>{ clearInterval(timer); hop(); timer = setInterval(hop, 7000); });
+    // Aletea al acercar el cursor y da un nuevo consejo al hacer click o usar teclado.
+    julisBody.addEventListener('pointerenter', ()=> flapWings(680));
+    julisBody.addEventListener('click', ()=>{
+      clearInterval(timer);
+      flapWings(760);
+      setTimeout(hop, reduce ? 0 : 120);
+      timer = setInterval(hop, 7000);
+    });
+    julisBody.addEventListener('keydown', (e)=>{
+      if(e.key==='Enter' || e.key===' '){ e.preventDefault(); julisBody.click(); }
+    });
 
     // Cerrar la mascota: se va en una ráfaga de plumas y no vuelve.
     closeBtn.addEventListener('click', (e)=>{
