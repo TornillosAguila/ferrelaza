@@ -42,7 +42,6 @@
               bright:  '#FF2E39',
               deep:    '#A5121A',
             },
-            cement:'#E6D8B8',    // polvo de cemento (mascota Julis)
           },
           fontFamily: {
             display: ['Archivo', 'system-ui', 'sans-serif'],
@@ -168,12 +167,13 @@
     .burger.on .l2{ opacity:0; }
     .burger.on .l3{ transform:translateY(-6px) rotate(-45deg); }
 
-    /* ---- Mascota Julis ---- */
+    /* ---- Mascota: pájaro Ferrelaza ---- */
     #julis{ transition:opacity .32s var(--ease-out), transform .38s var(--ease-out); will-change:transform,opacity; }
     #julis.poof{ opacity:0; transform:scale(.82) translateY(6px); filter:blur(2px); }
     #julis.appear{ animation:julisIn .5s var(--ease-out) both; }
     @keyframes julisIn{ from{ opacity:0; transform:scale(.86) translateY(10px);} to{ opacity:1; transform:none;} }
     #julis-body{ animation:bob 3.6s ease-in-out infinite; transform-origin:50% 100%; }
+    #julis-body img{ display:block; width:100%; height:auto; filter:drop-shadow(0 16px 20px rgba(0,0,0,.5)); }
     @keyframes bob{ 0%,100%{ transform:translateY(0) rotate(-1deg);} 50%{ transform:translateY(-7px) rotate(1deg);} }
     #julis-bubble{ transition:opacity .35s var(--ease-out), transform .35s var(--ease-out); }
     #julis-bubble.hide{ opacity:0; transform:translateY(6px) scale(.96); }
@@ -205,8 +205,8 @@
 
 <body class="grain antialiased selection:bg-red">
 
-  <!-- ===== CANVAS DE POLVO (efecto "hacerse polvo" de Julis) ===== -->
-  <canvas id="dust" class="fixed inset-0 z-[55] pointer-events-none"></canvas>
+  <!-- ===== CANVAS DE PLUMAS (salida de la mascota) ===== -->
+  <canvas id="feathers" class="fixed inset-0 z-[55] pointer-events-none"></canvas>
 
   <!-- ============================ NAV ============================ -->
   <header class="fixed top-0 inset-x-0 z-40 pt-4 px-4">
@@ -216,11 +216,7 @@
           <!-- Logo -->
           <a href="#top" class="flex items-center gap-2.5 group">
             <span class="w-9 h-9 grid place-items-center rounded-xl bg-[var(--chip)] hair">
-              <!-- pájaro Ferrelaza (SVG original) -->
-              <svg viewBox="0 0 64 64" class="w-6 h-6" aria-hidden="true">
-                <path fill="#E11B22" d="M41 15c-1.6 2-4 3.2-6.6 3.5-5.9.6-11 3.6-14.2 8.4-1.5-2.2-1.9-4.9-1-7.4-3.4 2.2-5.6 6-5.8 10.2-2.1.7-4 2-5.4 3.8 2.7-.5 4.6-.3 5.8.4-2.7 2.8-4 6.6-3.6 10.5 1.7-3 3.6-4.8 5.4-5.6-.3 2.7.4 5.4 2 7.6l-2.1 6.4c-.3 1 .4 2 1.5 2h4.6l1.7-6.9c1.7.6 3.6.9 5.4.9l1.6 6c.3 1 1.5 1.5 2.4 1l3.9-2.2-1.9-6.1c4.6-2.6 7.7-7.2 8.4-12.4l6.3-3.2c1-.5 1-1.9.1-2.5l-5.4-3.4c-.8-4.6-4.3-8.4-8.8-9.6z"/>
-                <circle cx="43" cy="26" r="1.7" fill="#0B0B0D"/>
-              </svg>
+              <img src="assets/logo-pajaro-2d.png" class="w-8 h-8 object-contain" alt="Pájaro Ferrelaza">
             </span>
             <span class="leading-none">
               <span class="font-display text-lg font-900 italic tracking-tight text-bone">FERRELAZA</span>
@@ -896,126 +892,25 @@
     <svg viewBox="0 0 32 32" class="w-7 h-7" fill="#fff"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.3.6 4.5 1.8 6.4L3 29l7.3-2.2c1.8 1 3.8 1.5 5.7 1.5 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.6c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.3 1.3 1.3-4.2-.3-.4c-1-1.6-1.5-3.4-1.5-5.3C5.9 9.9 10.4 5.4 16 5.4S26.1 9.9 26.1 15.5 21.6 25.6 16 25.6zm5.7-7.5c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1c-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.5 1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2 .8 2.7.9 3.7.8.6-.1 1.8-.7 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
   </a>
 
-  <!-- ==================== MASCOTA JULIS (petirrojo) ==================== -->
+  <!-- ==================== MASCOTA: PÁJARO FERRELAZA ==================== -->
   <div id="julis" class="fixed z-[50] select-none" style="left:20px; bottom:20px; width:150px;">
     <!-- burbuja de consejo -->
     <div id="julis-bubble" class="bub-left absolute bottom-[105%] w-56 max-w-[74vw]">
       <div class="shell !p-1 !rounded-2xl">
         <div class="core hair !rounded-[0.9rem] px-4 py-3 relative">
-          <p class="eyebrow text-red !text-[.55rem] !tracking-[.24em]">Julis te aconseja</p>
-          <p id="julis-text" class="text-bone text-[13px] leading-snug mt-1">¡Hola! Soy Julis. Te cuento cómo Ferrelaza te ayuda 👋</p>
+          <p class="eyebrow text-red !text-[.55rem] !tracking-[.24em]">El pajarito te aconseja</p>
+          <p id="julis-text" class="text-bone text-[13px] leading-snug mt-1">¡Hola! Te cuento cómo Ferrelaza te ayuda 👋</p>
           <span class="arrow absolute -bottom-1.5 w-3 h-3 rotate-45 bg-coal border-r border-b border-line/12"></span>
         </div>
       </div>
     </div>
 
     <!-- cerrar -->
-    <button id="julis-close" aria-label="Ocultar a Julis" class="absolute -top-2 -right-1 z-10 w-6 h-6 rounded-full bg-coal hair grid place-items-center text-ash hover:text-bone text-sm">×</button>
+    <button id="julis-close" aria-label="Ocultar la mascota pájaro" class="absolute -top-2 -right-1 z-10 w-6 h-6 rounded-full bg-coal hair grid place-items-center text-ash hover:text-bone text-sm">×</button>
 
-    <!-- cuerpo (SVG original estilo petirrojo kawaii, pecho rojo de marca) -->
+    <!-- Ave roja y amarilla: versión fiel de la nueva mascota -->
     <div id="julis-body" class="cursor-pointer">
-      <svg viewBox="0 0 220 220" class="w-full h-auto drop-shadow-[0_16px_20px_rgba(0,0,0,.5)]" role="img" aria-label="Julis, el petirrojo mascota de Ferrelaza. Clic para otro consejo.">
-        <defs>
-        <radialGradient id="fzBody" cx="40%" cy="28%" r="80%">
-        <stop offset="0" stop-color="#FFDE59"/>
-        <stop offset="52%" stop-color="#FFC01F"/>
-        <stop offset="100%" stop-color="#F2A000"/>
-        </radialGradient>
-        <radialGradient id="fzChest" cx="42%" cy="30%" r="78%">
-        <stop offset="0" stop-color="#F0463C"/>
-        <stop offset="58%" stop-color="#D41414"/>
-        <stop offset="100%" stop-color="#9E0D0D"/>
-        </radialGradient>
-        <radialGradient id="fzWing" cx="34%" cy="22%" r="90%">
-        <stop offset="0" stop-color="#FFC93A"/>
-        <stop offset="100%" stop-color="#E28E00"/>
-        </radialGradient>
-        <linearGradient id="fzBeak" x1="0" y1="0" x2="1" y2="0.6">
-        <stop offset="0" stop-color="#FFB63D"/>
-        <stop offset="1" stop-color="#EE7F05"/>
-        </linearGradient>
-        <linearGradient id="fzLeg" x1="0" y1="0" x2="0" y2="1">
-        <stop offset="0" stop-color="#FCAB2C"/>
-        <stop offset="1" stop-color="#E27B08"/>
-        </linearGradient>
-        <radialGradient id="fzGloss" cx="50%" cy="50%" r="50%">
-        <stop offset="0" stop-color="#FFFFFF" stop-opacity=".85"/>
-        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
-        </radialGradient>
-        <filter id="fzSoft" x="-40%" y="-40%" width="180%" height="180%">
-        <feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#3a2600" flood-opacity="0.28"/>
-        </filter>
-        </defs>
-
-        <!-- sombra en el piso -->
-        <ellipse cx="112" cy="208" rx="54" ry="11" fill="#000000" opacity="0.16"/>
-
-        <!-- patas -->
-        <g stroke="url(#fzLeg)" stroke-width="6.5" stroke-linecap="round">
-        <line x1="99" y1="182" x2="95" y2="203"/>
-        <line x1="125" y1="182" x2="129" y2="203"/>
-        </g>
-        <!-- dedos -->
-        <g stroke="#E27B08" stroke-width="5" stroke-linecap="round" fill="none">
-        <path d="M95 203 l-10 7 M95 203 l0 9 M95 203 l10 7"/>
-        <path d="M129 203 l-10 7 M129 203 l0 9 M129 203 l10 7"/>
-        </g>
-
-        <g filter="url(#fzSoft)">
-        <!-- cola -->
-        <path d="M50 156 q-30 -10 -38 8 q26 12 42 0 q-2 -5 -4 -8 Z" fill="#E28E00"/>
-        <path d="M14 165 q22 8 36 -1" fill="none" stroke="#B87400" stroke-width="1.6" opacity=".55"/>
-
-        <!-- cuerpo -->
-        <path d="M129 40
-        C 171 44 197 88 191 132
-        C 187 170 154 191 112 191
-        C 70 191 39 168 41 128
-        C 43 92 60 54 94 44
-        C 106 40 118 39 129 40 Z"
-        fill="url(#fzBody)"/>
-
-        <!-- brillo superior -->
-        <ellipse cx="92" cy="78" rx="34" ry="24" fill="url(#fzGloss)" opacity=".55"/>
-
-        <!-- pecho rojo (petirrojo) -->
-        <path d="M150 112
-        C 150 92 134 82 118 84
-        C 98 86 86 106 88 132
-        C 90 160 108 180 130 180
-        C 150 180 163 162 162 140
-        C 161 128 156 118 150 112 Z"
-        fill="url(#fzChest)"/>
-        <!-- borde suave del pecho -->
-        <path d="M150 112 C 150 92 134 82 118 84 C 98 86 86 106 88 132"
-        fill="none" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="2.5"/>
-
-        <!-- ala -->
-        <path d="M78 104
-        C 58 104 46 124 50 150
-        C 66 156 82 150 90 134
-        C 92 122 88 110 78 104 Z"
-        fill="url(#fzWing)"/>
-        <g stroke="#C97C00" stroke-width="1.8" stroke-linecap="round" opacity=".55" fill="none">
-        <path d="M60 118 q14 6 24 2"/>
-        <path d="M56 130 q16 8 28 3"/>
-        <path d="M56 142 q14 8 26 4"/>
-        </g>
-        </g>
-
-        <!-- pico -->
-        <path d="M180 100 L206 108 L180 118 Z" fill="url(#fzBeak)"/>
-        <path d="M180 109 L204 108" stroke="#B85F00" stroke-width="1.4" opacity=".5"/>
-
-        <!-- ojo -->
-        <ellipse cx="150" cy="94" rx="17.5" ry="18" fill="#2A1B05" opacity=".10"/>
-        <circle cx="150" cy="95" r="15.5" fill="#171008"/>
-        <circle cx="144" cy="89" r="5.2" fill="#FFFFFF"/>
-        <circle cx="155" cy="99" r="2.4" fill="#FFFFFF" opacity=".8"/>
-
-        <!-- cachete -->
-        <ellipse cx="126" cy="116" rx="9" ry="6" fill="#FF6B5A" opacity=".28"/>
-      </svg>
+      <img src="assets/mascota-pajaro-rojo.png" alt="Mascota pájaro de Ferrelaza con pecho rojo">
     </div>
   </div>
 
@@ -1052,20 +947,20 @@
     });
 
     /* ============================================================
-       MASCOTA JULIS — movimiento por la página + efecto "polvo"
+       MASCOTA PÁJARO — movimiento por la página + vuelo de plumas
        ============================================================ */
     const julis = document.getElementById('julis');
     const bubble = document.getElementById('julis-bubble');
     const julisText = document.getElementById('julis-text');
     const julisBody = document.getElementById('julis-body');
     const closeBtn = document.getElementById('julis-close');
-    const canvas = document.getElementById('dust');
+    const canvas = document.getElementById('feathers');
     const ctx = canvas.getContext('2d');
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-    // Consejos de Julis con TODA la data de la empresa
+    // Consejos de la mascota con toda la información de la empresa
     const tips = [
-      "Desde 2002 surtimos a las familias de Chalchihuites 🐦",
+      "Desde 2002 surtimos a las familias de Chalchihuites 🧱",
       "¿Vas a construir? Te surto material por VOLUMEN y a mejor precio.",
       "Manejo Cemento Moctezuma, Truper, Coflex, Dexter e IPESA Pinturas.",
       "También cobras y pagas tus remesas aquí, con toda confianza 💵",
@@ -1076,7 +971,7 @@
       "4.4★ en Google y trato familiar de verdad. ¡Ven a conocernos!",
     ];
 
-    // Posiciones a las que Julis "salta" (todas ancladas abajo; nunca tapan el botón de WhatsApp)
+    // Posiciones a las que la mascota "salta" (nunca tapa el botón de WhatsApp)
     const spots = [
       { left:'20px',  right:'auto', bottom:'20px',  side:'left'  },  // abajo izquierda
       { left:'auto',  right:'20px', bottom:'104px', side:'right' },  // arriba del WhatsApp
@@ -1084,7 +979,7 @@
     ];
     let tipIndex = 0, spotIndex = 0, hidden = false;
 
-    // Canvas responsivo (para el polvo)
+    // Canvas responsivo para las plumas
     function sizeCanvas(){
       canvas.width = innerWidth * devicePixelRatio;
       canvas.height = innerHeight * devicePixelRatio;
@@ -1093,40 +988,57 @@
     sizeCanvas();
     addEventListener('resize', sizeCanvas);
 
-    // Sistema de partículas (chispas doradas y rojas de la mascota)
-    let particles = [];
-    const SPARKS = ['#FFDE59','#FFC01F','#F2A000','#D41414','#F0463C'];
-    function burst(cx, cy){
-      const n = reduce ? 0 : 46;
+    // Sistema de plumas: sustituye el antiguo polvo de cemento.
+    let feathers = [];
+    const FEATHER_COLORS = ['#FF2E39','#E11B22','#FFD947','#FFB52B','#FFF2B8'];
+    function featherBurst(cx, cy, count=28){
+      const n = reduce ? 0 : count;
       for(let i=0;i<n;i++){
         const a = Math.random()*Math.PI*2;
-        const sp = 1 + Math.random()*4.5;
-        particles.push({
-          x:cx, y:cy,
-          vx:Math.cos(a)*sp,
-          vy:Math.sin(a)*sp - 1.5,      // impulso hacia arriba
-          r: 1.5 + Math.random()*3.5,
+        const sp = 1.2 + Math.random()*4.6;
+        feathers.push({
+          x: cx + (Math.random()-.5)*20,
+          y: cy + (Math.random()-.5)*26,
+          vx: Math.cos(a)*sp,
+          vy: Math.sin(a)*sp - 2.7,
+          length: 7 + Math.random()*8,
+          width: 2.4 + Math.random()*2.7,
           life: 1,
-          decay: 0.012 + Math.random()*0.02,
-          rot: Math.random()*6,
-          color: SPARKS[(Math.random()*SPARKS.length)|0],
+          decay: 0.010 + Math.random()*0.016,
+          rot: a + Math.PI/2,
+          spin: (Math.random()-.5)*0.22,
+          color: FEATHER_COLORS[(Math.random()*FEATHER_COLORS.length)|0],
         });
       }
     }
     function tick(){
       ctx.clearRect(0,0,innerWidth,innerHeight);
-      for(let i=particles.length-1;i>=0;i--){
-        const p = particles[i];
+      for(let i=feathers.length-1;i>=0;i--){
+        const p = feathers[i];
         p.x += p.vx; p.y += p.vy;
-        p.vy += 0.06;          // gravedad suave
-        p.vx *= 0.985;
+        p.vy += 0.075;
+        p.vx *= 0.988;
+        p.rot += p.spin;
         p.life -= p.decay;
-        if(p.life<=0){ particles.splice(i,1); continue; }
+        if(p.life<=0){ feathers.splice(i,1); continue; }
         ctx.globalAlpha = Math.max(0, p.life);
+        ctx.save();
+        ctx.translate(p.x, p.y);
+        ctx.rotate(p.rot);
         ctx.fillStyle = p.color;
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.r*(0.6+p.life*0.4), 0, Math.PI*2);
+        ctx.moveTo(0, -p.length*.58);
+        ctx.quadraticCurveTo(p.width*1.35, -p.length*.08, 0, p.length*.58);
+        ctx.quadraticCurveTo(-p.width*.65, p.length*.08, 0, -p.length*.58);
         ctx.fill();
+        ctx.globalAlpha = Math.max(0, p.life*.68);
+        ctx.strokeStyle = '#8D1118';
+        ctx.lineWidth = .75;
+        ctx.beginPath();
+        ctx.moveTo(0, -p.length*.42);
+        ctx.lineTo(0, p.length*.42);
+        ctx.stroke();
+        ctx.restore();
       }
       ctx.globalAlpha = 1;
       requestAnimationFrame(tick);
@@ -1138,13 +1050,13 @@
       return { x:r.left + r.width/2, y:r.top + r.height*0.55 };
     }
 
-    // Cambio de posición + consejo, con "hacerse polvo"
+    // Cambio de posición + consejo, con un vuelo de plumas.
     let busy = false;
     function hop(){
       if(hidden || busy) return;
       busy = true;
       const c = julisCenter();
-      burst(c.x, c.y);                 // estalla en polvo en su lugar actual
+      featherBurst(c.x, c.y, 26);      // las plumas salen al despegar
       bubble.classList.add('hide');
       julis.classList.remove('appear');
       julis.classList.add('poof');     // se desvanece
@@ -1161,10 +1073,10 @@
         julisText.textContent = tips[tipIndex];
 
         julis.classList.remove('poof');
-        // pequeño polvo de "materialización"
+        // Unas plumas ligeras al aterrizar en el siguiente punto.
         requestAnimationFrame(()=>{
           const c2 = julisCenter();
-          if(!reduce){ for(let i=0;i<10;i++){ burst(c2.x + (Math.random()-.5)*40, c2.y + 30); } }
+          featherBurst(c2.x, c2.y + 18, 10);
           julis.classList.add('appear');
           bubble.classList.remove('hide');
           busy = false;
@@ -1174,15 +1086,15 @@
 
     // Ciclo automático
     let timer = setInterval(hop, 7000);
-    // Click en Julis = siguiente consejo ya
+    // Click en el pájaro = siguiente consejo al instante
     julisBody.addEventListener('click', ()=>{ clearInterval(timer); hop(); timer = setInterval(hop, 7000); });
 
-    // Cerrar Julis (se hace polvo y no vuelve)
+    // Cerrar la mascota: se va en una ráfaga de plumas y no vuelve.
     closeBtn.addEventListener('click', (e)=>{
       e.stopPropagation();
       clearInterval(timer);
       const c = julisCenter();
-      burst(c.x, c.y);
+      featherBurst(c.x, c.y, 40);
       bubble.classList.add('hide');
       julis.classList.add('poof');
       hidden = true;
