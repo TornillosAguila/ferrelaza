@@ -896,7 +896,7 @@
     <svg viewBox="0 0 32 32" class="w-7 h-7" fill="#fff"><path d="M16 3C9 3 3.5 8.5 3.5 15.5c0 2.3.6 4.5 1.8 6.4L3 29l7.3-2.2c1.8 1 3.8 1.5 5.7 1.5 7 0 12.5-5.5 12.5-12.5S23 3 16 3zm0 22.6c-1.8 0-3.5-.5-5-1.4l-.4-.2-4.3 1.3 1.3-4.2-.3-.4c-1-1.6-1.5-3.4-1.5-5.3C5.9 9.9 10.4 5.4 16 5.4S26.1 9.9 26.1 15.5 21.6 25.6 16 25.6zm5.7-7.5c-.3-.2-1.8-.9-2.1-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7.1c-1.8-.9-3-1.6-4.2-3.6-.3-.5.3-.5.8-1.6.1-.2 0-.4 0-.5s-.7-1.7-1-2.3c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4s-1 1-1 2.5 1.1 2.9 1.2 3.1c.2.2 2.1 3.3 5.2 4.6 2 .8 2.7.9 3.7.8.6-.1 1.8-.7 2.1-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
   </a>
 
-  <!-- ==================== MASCOTA JULIS (bolsa de cemento) ==================== -->
+  <!-- ==================== MASCOTA JULIS (petirrojo) ==================== -->
   <div id="julis" class="fixed z-[50] select-none" style="left:20px; bottom:20px; width:150px;">
     <!-- burbuja de consejo -->
     <div id="julis-bubble" class="bub-left absolute bottom-[105%] w-56 max-w-[74vw]">
@@ -912,43 +912,109 @@
     <!-- cerrar -->
     <button id="julis-close" aria-label="Ocultar a Julis" class="absolute -top-2 -right-1 z-10 w-6 h-6 rounded-full bg-coal hair grid place-items-center text-ash hover:text-bone text-sm">×</button>
 
-    <!-- cuerpo (SVG original estilo bolsa de cemento kawaii) -->
+    <!-- cuerpo (SVG original estilo petirrojo kawaii, pecho rojo de marca) -->
     <div id="julis-body" class="cursor-pointer">
-      <svg viewBox="0 0 200 230" class="w-full h-auto drop-shadow-[0_16px_20px_rgba(0,0,0,.5)]" aria-label="Julis, la bolsa de cemento mascota de Ferrelaza">
-        <!-- sombra -->
-        <ellipse cx="100" cy="222" rx="42" ry="7" fill="#000" opacity=".28"/>
-        <!-- brazos -->
-        <path d="M44 120 C24 128 20 150 30 162 C38 150 46 140 56 136 Z" fill="#E6D8B8" stroke="#0B0B0D" stroke-width="6" stroke-linejoin="round"/>
-        <path d="M156 120 C176 128 180 150 170 162 C162 150 154 140 144 136 Z" fill="#E6D8B8" stroke="#0B0B0D" stroke-width="6" stroke-linejoin="round"/>
-        <!-- piernas -->
-        <path d="M78 196 L74 220" stroke="#0B0B0D" stroke-width="10" stroke-linecap="round"/>
-        <path d="M122 196 L126 220" stroke="#0B0B0D" stroke-width="10" stroke-linecap="round"/>
-        <!-- cuerpo bolsa -->
-        <rect x="46" y="40" width="108" height="162" rx="26" fill="#EBDCB9" stroke="#0B0B0D" stroke-width="7"/>
-        <rect x="46" y="40" width="108" height="162" rx="26" fill="url(#gj)" opacity=".5"/>
-        <!-- etiqueta 50 kg -->
-        <text x="138" y="70" text-anchor="end" font-family="Space Grotesk, monospace" font-size="15" font-weight="700" fill="#E11B22">50 kg</text>
-        <!-- ojos -->
-        <ellipse cx="84" cy="118" rx="9" ry="11" fill="#0B0B0D"/>
-        <ellipse cx="116" cy="118" rx="9" ry="11" fill="#0B0B0D"/>
-        <circle cx="87" cy="114" r="3" fill="#fff"/>
-        <circle cx="119" cy="114" r="3" fill="#fff"/>
-        <!-- ceja pícara -->
-        <path d="M108 104 q10 -5 18 1" stroke="#0B0B0D" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <!-- boca -->
-        <path d="M92 134 q8 8 16 0" stroke="#0B0B0D" stroke-width="4" fill="none" stroke-linecap="round"/>
-        <!-- cachetes -->
-        <circle cx="74" cy="132" r="5" fill="#E11B22" opacity=".28"/>
-        <circle cx="126" cy="132" r="5" fill="#E11B22" opacity=".28"/>
-        <!-- etiqueta CEMENT -->
-        <rect x="58" y="158" width="84" height="26" rx="8" fill="#E11B22"/>
-        <text x="100" y="176" text-anchor="middle" font-family="Archivo, sans-serif" font-size="15" font-weight="900" fill="#fff" letter-spacing="1">CEMENTO</text>
+      <svg viewBox="0 0 220 220" class="w-full h-auto drop-shadow-[0_16px_20px_rgba(0,0,0,.5)]" role="img" aria-label="Julis, el petirrojo mascota de Ferrelaza. Clic para otro consejo.">
         <defs>
-          <linearGradient id="gj" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="0" stop-color="#fff" stop-opacity=".6"/>
-            <stop offset="1" stop-color="#C9B487" stop-opacity=".2"/>
-          </linearGradient>
+        <radialGradient id="fzBody" cx="40%" cy="28%" r="80%">
+        <stop offset="0" stop-color="#FFDE59"/>
+        <stop offset="52%" stop-color="#FFC01F"/>
+        <stop offset="100%" stop-color="#F2A000"/>
+        </radialGradient>
+        <radialGradient id="fzChest" cx="42%" cy="30%" r="78%">
+        <stop offset="0" stop-color="#F0463C"/>
+        <stop offset="58%" stop-color="#D41414"/>
+        <stop offset="100%" stop-color="#9E0D0D"/>
+        </radialGradient>
+        <radialGradient id="fzWing" cx="34%" cy="22%" r="90%">
+        <stop offset="0" stop-color="#FFC93A"/>
+        <stop offset="100%" stop-color="#E28E00"/>
+        </radialGradient>
+        <linearGradient id="fzBeak" x1="0" y1="0" x2="1" y2="0.6">
+        <stop offset="0" stop-color="#FFB63D"/>
+        <stop offset="1" stop-color="#EE7F05"/>
+        </linearGradient>
+        <linearGradient id="fzLeg" x1="0" y1="0" x2="0" y2="1">
+        <stop offset="0" stop-color="#FCAB2C"/>
+        <stop offset="1" stop-color="#E27B08"/>
+        </linearGradient>
+        <radialGradient id="fzGloss" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stop-color="#FFFFFF" stop-opacity=".85"/>
+        <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
+        </radialGradient>
+        <filter id="fzSoft" x="-40%" y="-40%" width="180%" height="180%">
+        <feDropShadow dx="0" dy="7" stdDeviation="8" flood-color="#3a2600" flood-opacity="0.28"/>
+        </filter>
         </defs>
+
+        <!-- sombra en el piso -->
+        <ellipse cx="112" cy="208" rx="54" ry="11" fill="#000000" opacity="0.16"/>
+
+        <!-- patas -->
+        <g stroke="url(#fzLeg)" stroke-width="6.5" stroke-linecap="round">
+        <line x1="99" y1="182" x2="95" y2="203"/>
+        <line x1="125" y1="182" x2="129" y2="203"/>
+        </g>
+        <!-- dedos -->
+        <g stroke="#E27B08" stroke-width="5" stroke-linecap="round" fill="none">
+        <path d="M95 203 l-10 7 M95 203 l0 9 M95 203 l10 7"/>
+        <path d="M129 203 l-10 7 M129 203 l0 9 M129 203 l10 7"/>
+        </g>
+
+        <g filter="url(#fzSoft)">
+        <!-- cola -->
+        <path d="M50 156 q-30 -10 -38 8 q26 12 42 0 q-2 -5 -4 -8 Z" fill="#E28E00"/>
+        <path d="M14 165 q22 8 36 -1" fill="none" stroke="#B87400" stroke-width="1.6" opacity=".55"/>
+
+        <!-- cuerpo -->
+        <path d="M129 40
+        C 171 44 197 88 191 132
+        C 187 170 154 191 112 191
+        C 70 191 39 168 41 128
+        C 43 92 60 54 94 44
+        C 106 40 118 39 129 40 Z"
+        fill="url(#fzBody)"/>
+
+        <!-- brillo superior -->
+        <ellipse cx="92" cy="78" rx="34" ry="24" fill="url(#fzGloss)" opacity=".55"/>
+
+        <!-- pecho rojo (petirrojo) -->
+        <path d="M150 112
+        C 150 92 134 82 118 84
+        C 98 86 86 106 88 132
+        C 90 160 108 180 130 180
+        C 150 180 163 162 162 140
+        C 161 128 156 118 150 112 Z"
+        fill="url(#fzChest)"/>
+        <!-- borde suave del pecho -->
+        <path d="M150 112 C 150 92 134 82 118 84 C 98 86 86 106 88 132"
+        fill="none" stroke="#FFFFFF" stroke-opacity=".18" stroke-width="2.5"/>
+
+        <!-- ala -->
+        <path d="M78 104
+        C 58 104 46 124 50 150
+        C 66 156 82 150 90 134
+        C 92 122 88 110 78 104 Z"
+        fill="url(#fzWing)"/>
+        <g stroke="#C97C00" stroke-width="1.8" stroke-linecap="round" opacity=".55" fill="none">
+        <path d="M60 118 q14 6 24 2"/>
+        <path d="M56 130 q16 8 28 3"/>
+        <path d="M56 142 q14 8 26 4"/>
+        </g>
+        </g>
+
+        <!-- pico -->
+        <path d="M180 100 L206 108 L180 118 Z" fill="url(#fzBeak)"/>
+        <path d="M180 109 L204 108" stroke="#B85F00" stroke-width="1.4" opacity=".5"/>
+
+        <!-- ojo -->
+        <ellipse cx="150" cy="94" rx="17.5" ry="18" fill="#2A1B05" opacity=".10"/>
+        <circle cx="150" cy="95" r="15.5" fill="#171008"/>
+        <circle cx="144" cy="89" r="5.2" fill="#FFFFFF"/>
+        <circle cx="155" cy="99" r="2.4" fill="#FFFFFF" opacity=".8"/>
+
+        <!-- cachete -->
+        <ellipse cx="126" cy="116" rx="9" ry="6" fill="#FF6B5A" opacity=".28"/>
       </svg>
     </div>
   </div>
@@ -999,7 +1065,7 @@
 
     // Consejos de Julis con TODA la data de la empresa
     const tips = [
-      "Desde 2002 surtimos a las familias de Chalchihuites 🧱",
+      "Desde 2002 surtimos a las familias de Chalchihuites 🐦",
       "¿Vas a construir? Te surto material por VOLUMEN y a mejor precio.",
       "Manejo Cemento Moctezuma, Truper, Coflex, Dexter e IPESA Pinturas.",
       "También cobras y pagas tus remesas aquí, con toda confianza 💵",
@@ -1027,9 +1093,9 @@
     sizeCanvas();
     addEventListener('resize', sizeCanvas);
 
-    // Sistema de partículas de polvo de cemento
+    // Sistema de partículas (chispas doradas y rojas de la mascota)
     let particles = [];
-    const CEMENT = ['#E6D8B8','#D9C69A','#C9B487','#B7A377','#F0E7CF'];
+    const SPARKS = ['#FFDE59','#FFC01F','#F2A000','#D41414','#F0463C'];
     function burst(cx, cy){
       const n = reduce ? 0 : 46;
       for(let i=0;i<n;i++){
@@ -1043,7 +1109,7 @@
           life: 1,
           decay: 0.012 + Math.random()*0.02,
           rot: Math.random()*6,
-          color: CEMENT[(Math.random()*CEMENT.length)|0],
+          color: SPARKS[(Math.random()*SPARKS.length)|0],
         });
       }
     }
